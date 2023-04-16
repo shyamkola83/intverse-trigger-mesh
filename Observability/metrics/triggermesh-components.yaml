@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: triggermesh-components
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:  # 
+      app.kubernetes.io/part-of: triggermesh
+  namespaceSelector:  # 
+    any: true
+  podMetricsEndpoints:  # 
+  - port: metrics
+  - port: user-port
+    relabelings:
+    - action: replace
+      targetLabel: __address__
+      sourceLabels:
+      - __meta_kubernetes_pod_ip
+      replacement: $1:9092
+  jobLabel: app.kubernetes.io/name  # 
