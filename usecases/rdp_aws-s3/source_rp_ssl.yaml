@@ -1,0 +1,37 @@
+apiVersion: sources.triggermesh.io/v1alpha1
+kind: KafkaSource
+metadata:
+  name: kafkasourcetest
+spec:
+  groupID: default
+  bootstrapServers:
+    - redpanda-0.redpanda.aws.intverse.io:31092
+    - redpanda-1.redpanda.aws.intverse.io:31092
+    - redpanda-2.redpanda.aws.intverse.io:31092
+  topic: triggermeshtopic
+  auth:
+    username: intverseuser
+    password: 
+      value: intverse123
+    saslEnable: true
+    tlsEnable: true
+    securityMechanism: SCRAM-SHA-512
+    tls:
+      ca:
+        valueFromSecret:
+          name: capem
+          key: ca.pem
+     # clientCert:
+     #   valueFromSecret:
+     #     name: tlscert
+     #     key: tls.pem
+     #  clientKey:
+     #   valueFromSecret:
+     #     name: clientkey
+     #     key: clientkey.pem
+      skipVerify: true
+  sink:
+    ref:
+      apiVersion: targets.triggermesh.io/v1alpha1
+      kind: AWSS3Target
+      name: triggermesh-aws-s3-test

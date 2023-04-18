@@ -1,0 +1,10 @@
+apiVersion: targets.triggermesh.io/v1alpha1
+kind: GoogleCloudStorageTarget
+metadata:
+  name: googlecloudstorage
+spec:
+  bucketName: sampletestbkks
+  credentialsJson:
+    secretKeyRef:
+      name: googlecloudstorage
+      key: creds

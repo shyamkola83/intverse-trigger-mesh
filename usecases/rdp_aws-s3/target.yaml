@@ -1,0 +1,16 @@
+apiVersion: targets.triggermesh.io/v1alpha1
+kind: AWSS3Target
+metadata:
+  name: triggermesh-aws-s3-test
+spec:
+  arn: arn:aws:s3:::trigmeshbucket
+  auth:
+    credentials:
+      accessKeyID:
+        valueFromSecret:
+          name: awscreds
+          key: accessKeyID
+      secretAccessKey:
+        valueFromSecret:
+          name: awscreds
+          key: secretAccessKey

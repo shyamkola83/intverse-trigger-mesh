@@ -1,0 +1,19 @@
+apiVersion: eventing.triggermesh.io/v1alpha1
+kind: Trigger
+metadata:
+  labels:
+    triggermesh.io/context: foo
+  name: foo-trigger
+spec:
+  broker:
+    group: eventing.triggermesh.io
+    kind: RedisBroker
+    name: foo
+  target:
+    ref:
+      apiVersion: targets.triggermesh.io/v1alpha1
+      kind: AWSS3Target
+      name: triggermesh-aws-s3-test
+  filters:
+    - exact:
+        type: com.amazon.sqs.message

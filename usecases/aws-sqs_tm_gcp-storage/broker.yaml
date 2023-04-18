@@ -1,0 +1,6 @@
+apiVersion: eventing.triggermesh.io/v1alpha1
+kind: RedisBroker
+metadata:
+  labels:
+    triggermesh.io/context: foo
+  name: foo

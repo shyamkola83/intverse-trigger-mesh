@@ -1,0 +1,23 @@
+apiVersion: sources.triggermesh.io/v1alpha1
+kind: AWSSQSSource
+metadata:
+  labels:
+    triggermesh.io/context: foo
+  name: foo-awssqssource
+spec:
+  arn: arn:aws:sqs:us-east-1:510689129602:tmeshq
+  auth:
+    credentials:
+      accessKeyID:
+        valueFromSecret:
+          name: awscreds
+          key: accessKeyID
+      secretAccessKey:
+        valueFromSecret:
+          name: awscreds
+          key: secretAccessKey
+  sink:
+    ref:
+      apiVersion: eventing.triggermesh.io/v1alpha1
+      kind: RedisBroker
+      name: foo
